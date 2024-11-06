@@ -11,7 +11,7 @@ df_movies.dropna(inplace=True)
 
 print("Shape after cleaning:", df_movies.shape)
 
-train_data, test_data = train_test_split(df_movies, test_size=0.3, random_state=42)
+train_data, further_training_data = train_test_split(df_movies, test_size=0.3, random_state=42)
 
 print("Train data shape:", train_data.shape)
-print("Test data shape:", test_data.shape)
+print("Further training data shape:", further_training_data.shape)

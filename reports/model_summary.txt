@@ -7,3 +7,9 @@ random_forest,0.7855,models/random_forest_accuracy_0.7855.pkl
 random_forest,0.7766,/opt/airflow/models/random_forest_accuracy_0.7766.pkl
 gradient_boosting,0.7830,/opt/airflow/models/gradient_boosting_accuracy_0.7830.pkl
 xgboost,0.7957,/opt/airflow/models/xgboost_accuracy_0.7957.pkl
+gradient_boosting,0.7906,models/gradient_boosting_accuracy_0.7906.pkl
+xgboost,0.7957,models/xgboost_accuracy_0.7957.pkl
+random_forest,0.7754,models/random_forest_accuracy_0.7754.pkl
+gradient_boosting,0.7830,models/gradient_boosting_accuracy_0.7830.pkl
+xgboost,0.7957,models/xgboost_accuracy_0.7957.pkl
+random_forest,0.7690,models/random_forest_accuracy_0.7690.pkl

@@ -5,4 +5,5 @@ kagglehub
 datetime
 oauth2client
 gspread
-os
+xgboost
+matplotlib

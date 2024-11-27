@@ -77,6 +77,11 @@ x-airflow-common:
     - ${AIRFLOW_PROJ_DIR:-.}/logs:/opt/airflow/logs
     - ${AIRFLOW_PROJ_DIR:-.}/config:/opt/airflow/config
     - ${AIRFLOW_PROJ_DIR:-.}/plugins:/opt/airflow/plugins
+    - ${AIRFLOW_PROJ_DIR:-.}/processed_data:/opt/airflow/processed_data
+    - ${AIRFLOW_PROJ_DIR:-.}/visualizations:/opt/airflow/visualizations
+    - ${AIRFLOW_PROJ_DIR:-.}/datasets:/opt/airflow/datasets
+    - ${AIRFLOW_PROJ_DIR:-.}/models:/opt/airflow/models
+    - ${AIRFLOW_PROJ_DIR:-.}/reports:/opt/airflow/reports
   user: "${AIRFLOW_UID:-50000}:0"
   depends_on:
     &airflow-common-depends-on

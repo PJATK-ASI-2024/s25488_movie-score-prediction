@@ -1,0 +1,9 @@
+gradient_boosting,0.7931,models/gradient_boosting_accuracy_0.7931.pkl
+xgboost,0.7957,models/xgboost_accuracy_0.7957.pkl
+random_forest,0.7805,models/random_forest_accuracy_0.7805.pkl
+gradient_boosting,0.7970,models/gradient_boosting_accuracy_0.7970.pkl
+xgboost,0.7957,models/xgboost_accuracy_0.7957.pkl
+random_forest,0.7855,models/random_forest_accuracy_0.7855.pkl
+random_forest,0.7766,/opt/airflow/models/random_forest_accuracy_0.7766.pkl
+gradient_boosting,0.7830,/opt/airflow/models/gradient_boosting_accuracy_0.7830.pkl
+xgboost,0.7957,/opt/airflow/models/xgboost_accuracy_0.7957.pkl

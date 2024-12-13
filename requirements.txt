@@ -1,9 +1,12 @@
 pandas
 numpy
-scikit-learn 
+scikit-learn
 kagglehub
 datetime
 oauth2client
 gspread
 xgboost
 matplotlib
+fastapi
+uvicorn
+fastapi[standard]

@@ -1,3 +1,120 @@
+# Movie Prediction API
+
+## Opis
+Ten projekt implementuje serwis REST API dla przewidywania wyników filmu na podstawie cech wejściowych. API jest zbudowane przy użyciu **FastAPI** i uruchamiane w kontenerze Docker.
+
+---
+
+## Jak uruchomić kontener
+1. **Zbuduj obraz Dockera**:  
+   W katalogu z plikiem `Dockerfile` uruchom:  
+   ```bash
+   docker build -t movie-prediction-api .
+   ```
+
+2. **Uruchom kontener**:  
+   ```bash
+   docker run -d -p 5000:5000 movie-prediction-api
+   ```
+
+3. **Dokumentacja API**:  
+   Po uruchomieniu API dokumentacja będzie dostępna pod adresem:  
+   [http://localhost:5000/docs](http://localhost:5000/docs)
+
+![screen ze strony](imgs/image-1.png)
+---
+
+## Endpoint `/predict`
+### Informacje o endpointzie:
+- **Metoda**: POST  
+- **URL**: `http://localhost:5000/predict`  
+- **Opis**: Endpoint przyjmuje dane wejściowe w formacie JSON i zwraca przewidywanie.  
+
+### Przykładowe dane wejściowe:  
+```json
+{
+  "num_critic_for_reviews": 0.2096177558569667,
+  "duration": 0.3802281368821292,
+  "director_facebook_likes": 0.0034347826086956502,
+  "actor_3_facebook_likes": 0.008434782608695648,
+  "actor_1_facebook_likes": 0.10384615384615384,
+  "gross": 0.0015857514595699618,
+  "num_voted_users": 0.024113149345322084,
+  "cast_total_facebook_likes": 0.09109137782870236,
+  "facenumber_in_poster": 0.06976744186046513,
+  "num_user_for_reviews": 0.0386100386100386,
+  "budget": 0.019999914543992553,
+  "title_year": 0.9887640449438203,
+  "actor_2_facebook_likes": 0.0018540145985401456,
+  "aspect_ratio": 0.07894736842105263,
+  "movie_facebook_likes": 0.09137055837563451
+}
+```
+
+### Przykładowa odpowiedź:  
+```json
+{
+  "prediction": 3
+}
+```
+
+---
+
+## Testowanie
+### Za pomocą `curl`:  
+Uruchom poniższą komendę:  
+```bash
+curl -X 'POST' 
+  'http://127.0.0.1:5000/predict' 
+  -H 'accept: application/json' 
+  -H 'Content-Type: application/json' 
+  -d '{
+  "num_critic_for_reviews": 0.2096177558569667,
+  "duration": 0.3802281368821292,
+  "director_facebook_likes": 0.0034347826086956502,
+  "actor_3_facebook_likes": 0.008434782608695648,
+  "actor_1_facebook_likes": 0.10384615384615384,
+  "gross": 0.0015857514595699618,
+  "num_voted_users": 0.024113149345322084,
+  "cast_total_facebook_likes": 0.09109137782870236,
+  "facenumber_in_poster": 0.06976744186046513,
+  "num_user_for_reviews": 0.0386100386100386,
+  "budget": 0.019999914543992553,
+  "title_year": 0.9887640449438203,
+  "actor_2_facebook_likes": 0.0018540145985401456,
+  "aspect_ratio": 0.07894736842105263,
+  "movie_facebook_likes": 0.09137055837563451
+}'
+```
+![curl](imgs/image-2.png)
+
+### Za pomocą Postmana:
+1. Otwórz Postmana.
+2. Ustaw metodę na `POST`.
+3. Wprowadź adres: `http://localhost:5000/predict`.
+4. W sekcji **Body** wybierz opcję **raw** i ustaw typ na **JSON**.
+5. Wprowadź dane wejściowe:  
+   ```json
+   {
+     "num_critic_for_reviews": 0.2096177558569667,
+     "duration": 0.3802281368821292,
+     "director_facebook_likes": 0.0034347826086956502,
+     "actor_3_facebook_likes": 0.008434782608695648,
+     "actor_1_facebook_likes": 0.10384615384615384,
+     "gross": 0.0015857514595699618,
+     "num_voted_users": 0.024113149345322084,
+     "cast_total_facebook_likes": 0.09109137782870236,
+     "facenumber_in_poster": 0.06976744186046513,
+     "num_user_for_reviews": 0.0386100386100386,
+     "budget": 0.019999914543992553,
+     "title_year": 0.9887640449438203,
+     "actor_2_facebook_likes": 0.0018540145985401456,
+     "aspect_ratio": 0.07894736842105263,
+     "movie_facebook_likes": 0.09137055837563451
+   }
+   ```
+6. Wyślij żądanie i sprawdź odpowiedź.
+
 # Prognozowanie oceny filmu na podstawie danych z IMDB
 
 ## 1. Opis Projektu

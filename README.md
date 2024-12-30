@@ -26,21 +26,43 @@ Ten projekt implementuje serwis REST API dla przewidywania wyników filmu na pod
    - Wygeneruj klucz w formacie JSON (**Add Key > Create New Key**) i pobierz plik.
 2. Skopiuj pobrany plik `credentials.json` do odpowiedniego katalogu
 
-## Jak uruchomić kontener
-1. **Zbuduj obraz Dockera**:  
-   W katalogu z plikiem `Dockerfile` uruchom:  
+### Jak pobrać aplikację
+Aplikację można pobrać z repozytorium na GitHubie pod adresem: [GitHub Link](https://github.com/PJATK-ASI-2024/s25488_movie-score-prediction). Upewnij się, że masz zainstalowane wszystkie wymagane zależności, korzystając z pliku `requirements.txt`.
+
+### Jak uruchomić aplikację krok po kroku
+1. **Skopiuj repozytorium**:
+   ```bash
+   git clone <repo_url>
+   cd <repo_folder>
+   ```
+
+2. **Zainstaluj zależności**:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Uruchom aplikację lokalnie**:
+   ```bash
+   uvicorn app:app --reload
+   ```
+
+4. **Uzyskaj dostęp do API**:
+   - API będzie dostępne pod adresem: [http://localhost:5000/docs](http://localhost:5000/docs).
+   - Możesz przetestować endpoint `/predict` przy użyciu dowolnego narzędzia do wysyłania żądań HTTP, np. `curl` lub Postmana.
+
+### Jak uruchomić w kontenerze Dockera
+1. **Zbuduj obraz Dockera**:
    ```bash
    docker build -t movie-prediction-api .
    ```
 
-2. **Uruchom kontener**:  
+2. **Uruchom kontener**:
    ```bash
-   docker run -d -p 5000:5000 movie-prediction-api
+   docker run -d -p 8000:8000 movie-prediction-api
    ```
 
-3. **Dokumentacja API**:  
-   Po uruchomieniu API dokumentacja będzie dostępna pod adresem:  
-   [http://localhost:5000/docs](http://localhost:5000/docs)
+3. **Uzyskaj dostęp do API**:
+   - Dokumentacja API dostępna będzie pod adresem: [http://localhost:5000/docs](http://localhost:5000/docs).
 
 ![screen ze strony](imgs/image-1.png)
 ---
@@ -176,12 +198,19 @@ Zestaw danych zawiera następujące atrybuty:
 - **movie_facebook_likes**: Łączna liczba polubień filmu na Facebooku
 
 ## 2. Wstępna analiza i podział danych
+### 2.1 Wczytanie danych
+Na początku wczytano zestaw danych zawierający informacje o filmach. Sprawdzono podstawowe informacje, takie jak początkowy kształt danych oraz typy kolumn, aby uzyskać przegląd struktury danych. Dane początkowo miały 5043 rekordów oraz 28 kolumn.
 
-W ramach przygotowań do modelowania wykonano wstępną analizę oraz czyszczenie danych:
+### 2.2 Czyszczenie danych
+W procesie czyszczenia usunięto kolumnę `movie_imdb_link`, która nie wnosiła istotnych informacji do analizy. Następnie usunięto wiersze zawierające brakujące wartości, co pomogło w zapewnieniu spójności i kompletności danych, które posłużą do modelowania. Po wyczyszczeniu danych zostało 3755 rekordów oraz 27 kolumn.
 
-1. **Wczytanie danych**: Na początku wczytano zestaw danych zawierający informacje o filmach. Sprawdzono podstawowe informacje, takie jak początkowy kształt danych oraz typy kolumn, aby uzyskać przegląd struktury danych. Dane początkowo miały 5043 rekordów oraz 28 kolumn
+### 2.3 Podział danych na zbiory treningowy i testowy
+Po zakończeniu wstępnej analizy podzielono dane na dwa zbiory – 70% do trenowania modelu oraz 30% do dalszego doszkalania. Podział ten pozwala na efektywne trenowanie modelu oraz późniejsze jego testowanie na odrębnych danych, co zwiększa wiarygodność wyników predykcji. Dane treningowe posiadają 2628 rekordów, a dane do doszkalania 1127 rekordów.
 
-2. **Czyszczenie danych**: W procesie czyszczenia usunięto kolumnę `movie_imdb_link`, która nie wnosiła istotnych informacji do analizy. Następnie usunięto wiersze zawierające brakujące wartości, co pomogło w zapewnieniu spójności i kompletności danych, które posłużą do modelowania. Po wyczyszczeniu danych zostało 3755 rekordów oraz 27 kolumn..
+## 3. Opis Modelu
 
-3. **Podział danych na zbiory treningowy i testowy**: Po zakończeniu wstępnej analizy podzielono dane na dwa zbiory – 70% do trenowania modelu oraz 30% do dalszego doszkalania. Podział ten pozwala na efektywne trenowanie modelu oraz późniejsze jego testowanie na odrębnych danych, co zwiększa wiarygodność wyników predykcji. Dane treningowe posiadają 2628 rekordy, a dane do doszkalnia 1127 rekordów.
+### 3.1 Wybrany model
+Do predykcji ocen filmów wybrano model Gradient Boosting ze względu na jego zdolność do uchwycenia złożonych nieliniowych zależności między cechami a zmienną docelową. Model ten jest dobrze dostosowany do przewidywania ciągłych wartości, takich jak oceny na IMDb, przy użyciu wielu cech wejściowych. Gradient Boosting zapewnia wysoką dokładność i jest odporny na przeuczenie dzięki wykorzystaniu technik ensemble.
 
+### 3.2 Proces trenowania
+Model został wytrenowany na zbiorze treningowym, a następnie przetestowany na zbiorze testowym, aby ocenić jego dokładność. Wskaźniki, takie jak R^2 oraz błąd średniokwadratowy (MSE), zostały użyte do oceny wydajności modelu.

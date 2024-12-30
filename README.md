@@ -4,6 +4,27 @@
 Ten projekt implementuje serwis REST API dla przewidywania wyników filmu na podstawie cech wejściowych. API jest zbudowane przy użyciu **FastAPI** i uruchamiane w kontenerze Docker.
 
 ---
+# Tworzenie `credentials.json` i konfiguracja Google Sheet
+
+## 1. Utwórz Google Sheet
+- Zaloguj się na [Google Sheets](https://sheets.google.com) i stwórz nowy arkusz.  
+- Skopiuj jego **ID** z adresu URL (np. `https://docs.google.com/spreadsheets/d/<ID>/edit`).  
+
+## 2. Wejdź na Google Cloud Console
+- Przejdź na [Google Cloud Console](https://console.cloud.google.com/) i zaloguj się.  
+
+## 3. Stwórz projekt
+- Wybierz **Home > Create Project**, wprowadź nazwę i kliknij **Create**.  
+
+## 4. Włącz API
+- W menu **API & Services > Library** wyszukaj i włącz **Google Sheets API** oraz **Google Drive API**.  
+
+## 5. Stwórz `credentials.json`
+1. Przejdź do sekcji **API & Services > Credentials**:
+   - Kliknij **Create Credentials > Service Account**.
+   - Nadaj nazwę konta, przydziel rolę **Editor** i zakończ.
+   - Wygeneruj klucz w formacie JSON (**Add Key > Create New Key**) i pobierz plik.
+2. Skopiuj pobrany plik `credentials.json` do odpowiedniego katalogu
 
 ## Jak uruchomić kontener
 1. **Zbuduj obraz Dockera**:  

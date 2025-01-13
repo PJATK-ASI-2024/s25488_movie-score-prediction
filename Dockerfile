@@ -7,7 +7,7 @@ FROM python:3.10-slim as python-base
 WORKDIR /app
 
 COPY app.py ./
-COPY models .//models/
+COPY models ./models/
 COPY creds.json ./
 COPY predict.py ./
 COPY datasets ./datasets/
